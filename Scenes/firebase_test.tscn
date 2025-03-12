@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsyxjx2qq6u1a"]
+
+[ext_resource type="Script" uid="uid://bmwvgb7eya378" path="res://Scripts/Firebase/firebase1.gd" id="1_03shm"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_03shm")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

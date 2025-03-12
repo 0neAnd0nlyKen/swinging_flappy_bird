@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b53bwfppf4dc5"]
+
+[ext_resource type="PackedScene" uid="uid://flsdk0d0ukfo" path="res://Scenes/coin.tscn" id="1_m5rgg"]
+[ext_resource type="Texture2D" uid="uid://dmmi7i1eplsqc" path="res://Sprites/brackeys_platformer_assets/sprites/coin.png" id="2_4f0uy"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="coin" parent="." instance=ExtResource("1_m5rgg")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4f0uy")

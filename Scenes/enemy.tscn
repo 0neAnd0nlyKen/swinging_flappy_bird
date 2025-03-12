@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6eg3woubw3pw"]
+
+[ext_resource type="Texture2D" uid="uid://brhh5xxobi68g" path="res://Sprites/brackeys_platformer_assets/sprites/slime_green.png" id="2_srjv8"]
+
+[sub_resource type="GDScript" id="GDScript_ebg1k"]
+script/source = "extends Area2D
+
+@export var speed = 60
+#var gradient = randi_range(-180,180)
+var gradient = 0
+var direction_x = sin(gradient)
+var direction_y = cos(gradient)
+
+func _ready():
+	print(gradient)
+
+func _process(delta):
+	position += Vector2(direction_x * speed * delta, direction_y * speed * delta)
+
+#func _physics_process(delta):
+	#position += Vector2(-2,0)
+
+func _on_body_entered(body):
+	if body is player:
+		get_tree().reload_current_scene()
+		pass
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	gradient = randi_range(-90,90)
+	direction_x = sin(gradient)
+	direction_y = cos(gradient)
+	var position_when_exited = global_position
+	var viewport_rect = get_viewport_rect()
+	if position_when_exited.x < viewport_rect.position.x:
+		print(\"Exited from left edge\")
+	elif position_when_exited.x > viewport_rect.end.x:
+		print(\"Exited from right edge\")
+	elif position_when_exited.y < viewport_rect.position.y:
+		print(\"Exited from top edge\")
+	elif position_when_exited.y > viewport_rect.end.y:
+		print(\"Exited from bottom edge\")	
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5aqg"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eeoum"]
+atlas = ExtResource("2_srjv8")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e5cv"]
+atlas = ExtResource("2_srjv8")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8et3k"]
+atlas = ExtResource("2_srjv8")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnfee"]
+atlas = ExtResource("2_srjv8")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8hlwy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eeoum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7e5cv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8et3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnfee")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="enemy" type="Node2D"]
+
+[node name="EnemyDetect" type="Area2D" parent="."]
+position = Vector2(0, 8)
+script = SubResource("GDScript_ebg1k")
+
+[node name="EnemyCol" type="CollisionShape2D" parent="EnemyDetect"]
+shape = SubResource("RectangleShape2D_y5aqg")
+
+[node name="EnemySprite" type="AnimatedSprite2D" parent="EnemyDetect"]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_8hlwy")
+autoplay = "default"
+frame_progress = 0.000364667
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="EnemyDetect"]
+
+[connection signal="body_entered" from="EnemyDetect" to="EnemyDetect" method="_on_body_entered"]
+[connection signal="screen_exited" from="EnemyDetect/VisibleOnScreenNotifier2D" to="EnemyDetect" method="_on_visible_on_screen_notifier_2d_screen_exited"]

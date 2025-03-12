@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://csym8hu3yhhtw"]
+
+[ext_resource type="Script" uid="uid://b85bvtidsjko4" path="res://Scripts/Player.gd" id="1_gmvqp"]
+[ext_resource type="Texture2D" uid="uid://dpyw0pxgkwgit" path="res://Sprites/flappy bird - sprites/background_day.png" id="1_s761n"]
+[ext_resource type="Texture2D" uid="uid://chejijvj2veqv" path="res://Sprites/flappy bird - sprites/bird_orange_0.png" id="2_tfjnn"]
+[ext_resource type="PackedScene" uid="uid://cll067pejyaoh" path="res://Scenes/webshooter.tscn" id="3_0uovh"]
+[ext_resource type="PackedScene" uid="uid://ce2xpi38frrcv" path="res://Scenes/wall_node.tscn" id="4_yjk6q"]
+[ext_resource type="PackedScene" uid="uid://flsdk0d0ukfo" path="res://Scenes/coin.tscn" id="5_myfnr"]
+[ext_resource type="Script" uid="uid://cwygd6gmqycfe" path="res://Scripts/wall_node.gd" id="6_ajngq"]
+[ext_resource type="PackedScene" uid="uid://c6eg3woubw3pw" path="res://Scenes/enemy.tscn" id="6_efcic"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s21t5"]
+size = Vector2(16, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fl8f"]
+size = Vector2(18, 14)
+
+[node name="World" type="Node2D"]
+
+[node name="WallNode" parent="." instance=ExtResource("4_yjk6q")]
+script = ExtResource("6_ajngq")
+
+[node name="background" type="Sprite2D" parent="WallNode"]
+texture = ExtResource("1_s761n")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="WallNode"]
+position = Vector2(250, 0)
+scale = Vector2(1, 15.32)
+
+[node name="PlayerNode" type="Node2D" parent="."]
+top_level = true
+
+[node name="Player" type="CharacterBody2D" parent="PlayerNode" node_paths=PackedStringArray("Webs")]
+position = Vector2(-153, 0)
+script = ExtResource("1_gmvqp")
+Webs = NodePath("Webshooter")
+
+[node name="Camera2D" type="Camera2D" parent="PlayerNode/Player"]
+position = Vector2(153, 0)
+zoom = Vector2(2, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNode/Player"]
+shape = SubResource("RectangleShape2D_s21t5")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerNode/Player"]
+texture = ExtResource("2_tfjnn")
+
+[node name="Detect" type="Area2D" parent="PlayerNode/Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNode/Player/Detect"]
+shape = SubResource("RectangleShape2D_3fl8f")
+
+[node name="Webshooter" parent="PlayerNode/Player" instance=ExtResource("3_0uovh")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="coin" parent="." instance=ExtResource("5_myfnr")]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="coin"]
+
+[node name="enemy" parent="." instance=ExtResource("6_efcic")]
+position = Vector2(-100, 0)
+
+[connection signal="screen_entered" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_entered"]
+[connection signal="screen_exited" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_exited"]
+[connection signal="area_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_area_entered"]
+[connection signal="body_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_body_entered"]
+[connection signal="screen_exited" from="coin/VisibleOnScreenEnabler2D" to="coin" method="_on_visible_on_screen_enabler_2d_screen_exited"]
+
+[editable path="WallNode"]
+[editable path="PlayerNode/Player/Webshooter"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bnu06ywdlvl7l"]
+
+[ext_resource type="Script" uid="uid://b85bvtidsjko4" path="res://Scripts/Player.gd" id="1_b70cr"]
+[ext_resource type="Texture2D" uid="uid://chejijvj2veqv" path="res://Sprites/flappy bird - sprites/bird_orange_0.png" id="2_sm8ni"]
+[ext_resource type="PackedScene" uid="uid://cll067pejyaoh" path="res://Scenes/webshooter.tscn" id="2_u1vhq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s21t5"]
+size = Vector2(16, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fl8f"]
+size = Vector2(18, 14)
+
+[node name="PlayerNode" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_b70cr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_s21t5")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_sm8ni")
+
+[node name="Detect" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Detect"]
+shape = SubResource("RectangleShape2D_3fl8f")
+
+[node name="Webshooter" parent="Player" instance=ExtResource("2_u1vhq")]

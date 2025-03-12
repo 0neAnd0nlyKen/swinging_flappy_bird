@@ -1,0 +1,134 @@
+[gd_scene load_steps=10 format=3 uid="uid://csym8hu3yhhtw"]
+
+[ext_resource type="Texture2D" uid="uid://dpyw0pxgkwgit" path="res://Sprites/flappy bird - sprites/background_day.png" id="1_s761n"]
+[ext_resource type="Texture2D" uid="uid://chejijvj2veqv" path="res://Sprites/flappy bird - sprites/bird_orange_0.png" id="3_jb74b"]
+[ext_resource type="PackedScene" uid="uid://ce2xpi38frrcv" path="res://Scenes/wall_node.tscn" id="4_yjk6q"]
+[ext_resource type="PackedScene" uid="uid://flsdk0d0ukfo" path="res://Scenes/coin.tscn" id="5_myfnr"]
+[ext_resource type="PackedScene" uid="uid://c6eg3woubw3pw" path="res://Scenes/enemy.tscn" id="6_efcic"]
+
+[sub_resource type="GDScript" id="GDScript_01bdj"]
+script/source = "extends CharacterBody2D
+
+class_name player_node
+const UP = Vector2(0,-1)
+const FLAP = 200
+const MAXFALLSPEED = 200
+const MOTION = Vector2()
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+const camera_ceiling=-160
+const camera_floor=160
+const wall_spawnpoint=400
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+var Wall = preload(\"res://Scenes/wall_node.tscn\")
+var score = 0
+
+
+
+func _physics_process(delta):
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y += gravity * delta 
+		if velocity.y > MAXFALLSPEED:
+			velocity.y = MAXFALLSPEED
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"ui_accept\"):
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction = Input.get_axis(\"ui_left\", \"ui_right\")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+	move_and_slide()
+	
+
+func Wall_reset():
+	var wall_instance=Wall.instantiate()
+	wall_instance.position=Vector2(wall_spawnpoint,randi_range(camera_ceiling+80,camera_floor-80))
+	get_parent().call_deferred(\"add_child\",wall_instance)
+func _on_resetter_body_entered(body):
+	if body.name == \"Walls\":
+		body.queue_free()
+		Wall_reset()
+
+
+
+func _on_detect_area_entered(area):
+	if area.name == \"PointArea\":
+		score+=1
+		
+
+
+func _on_detect_body_entered(body):
+	if body.name == \"Walls\":
+		get_tree().reload_current_scene()
+	
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s21t5"]
+size = Vector2(16, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fl8f"]
+size = Vector2(16.5, 12.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bxcc4"]
+size = Vector2(20, 300)
+
+[node name="World" type="Node2D"]
+metadata/_edit_group_ = true
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_s761n")
+
+[node name="PlayerNode" type="Node2D" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="PlayerNode"]
+position = Vector2(-200, 0)
+script = SubResource("GDScript_01bdj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNode/Player"]
+shape = SubResource("RectangleShape2D_s21t5")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerNode/Player"]
+texture = ExtResource("3_jb74b")
+
+[node name="Detect" type="Area2D" parent="PlayerNode/Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNode/Player/Detect"]
+shape = SubResource("RectangleShape2D_3fl8f")
+
+[node name="Resetter" type="Area2D" parent="PlayerNode/Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNode/Player/Resetter"]
+position = Vector2(-150, 0)
+shape = SubResource("RectangleShape2D_bxcc4")
+
+[node name="WallNode" parent="." instance=ExtResource("4_yjk6q")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="coin" parent="." instance=ExtResource("5_myfnr")]
+
+[node name="enemy" parent="." instance=ExtResource("6_efcic")]
+position = Vector2(-100, 0)
+
+[connection signal="area_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_area_entered"]
+[connection signal="body_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_body_entered"]
+[connection signal="body_entered" from="PlayerNode/Player/Resetter" to="PlayerNode/Player" method="_on_resetter_body_entered"]

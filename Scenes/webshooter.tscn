@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cll067pejyaoh"]
+
+[ext_resource type="Script" uid="uid://y6qpexjt2264" path="res://Scripts/Webshooter.gd" id="1_b5sry"]
+[ext_resource type="Texture2D" uid="uid://cvqsrpcyluhxs" path="res://Sprites/webs/webs_repeat.png" id="2_vmeou"]
+[ext_resource type="Texture2D" uid="uid://dx1da5wbw2a6y" path="res://Sprites/webs/pngfind.com-spiderweb-png-2956018.png" id="3_4ff6d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y0dle"]
+
+[node name="Webshooter" type="Node2D" node_paths=PackedStringArray("link")]
+texture_repeat = 2
+script = ExtResource("1_b5sry")
+link = NodePath("Link")
+
+[node name="Link" type="Sprite2D" parent="."]
+texture_repeat = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vmeou")
+offset = Vector2(150, 0)
+region_enabled = true
+region_rect = Rect2(0, 0, 223, 18.5)
+
+[node name="Tip" type="CharacterBody2D" parent="."]
+
+[node name="TipCol" type="CollisionShape2D" parent="Tip"]
+shape = SubResource("CapsuleShape2D_y0dle")
+
+[node name="Sprite2D" type="Sprite2D" parent="Tip"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_4ff6d")
