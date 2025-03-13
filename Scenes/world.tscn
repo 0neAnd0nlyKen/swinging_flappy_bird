@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://chejijvj2veqv" path="res://Sprites/flappy bird - sprites/bird_orange_0.png" id="2_tfjnn"]
 [ext_resource type="PackedScene" uid="uid://cll067pejyaoh" path="res://Scenes/webshooter.tscn" id="3_0uovh"]
 [ext_resource type="PackedScene" uid="uid://ce2xpi38frrcv" path="res://Scenes/wall_node.tscn" id="4_yjk6q"]
-[ext_resource type="PackedScene" uid="uid://flsdk0d0ukfo" path="res://Scenes/coin.tscn" id="5_myfnr"]
+[ext_resource type="Script" uid="uid://cgn5483f43o8k" path="res://Scripts/camera_2d.gd" id="5_5v1tr"]
 [ext_resource type="Script" uid="uid://cwygd6gmqycfe" path="res://Scripts/wall_node.gd" id="6_ajngq"]
 [ext_resource type="PackedScene" uid="uid://c6eg3woubw3pw" path="res://Scenes/enemy.tscn" id="6_efcic"]
 
@@ -17,11 +17,20 @@ size = Vector2(18, 14)
 
 [node name="World" type="Node2D"]
 
+[node name="Visible" type="Node2D" parent="."]
+script = ExtResource("5_5v1tr")
+
+[node name="Camera2D" type="Camera2D" parent="Visible"]
+position = Vector2(153, 0)
+zoom = Vector2(2, 2)
+drag_top_margin = 1.0
+drag_bottom_margin = 1.0
+
+[node name="background" type="Sprite2D" parent="Visible"]
+texture = ExtResource("1_s761n")
+
 [node name="WallNode" parent="." instance=ExtResource("4_yjk6q")]
 script = ExtResource("6_ajngq")
-
-[node name="background" type="Sprite2D" parent="WallNode"]
-texture = ExtResource("1_s761n")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="WallNode"]
 position = Vector2(250, 0)
@@ -34,10 +43,6 @@ top_level = true
 position = Vector2(-153, 0)
 script = ExtResource("1_gmvqp")
 Webs = NodePath("Webshooter")
-
-[node name="Camera2D" type="Camera2D" parent="PlayerNode/Player"]
-position = Vector2(153, 0)
-zoom = Vector2(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNode/Player"]
 shape = SubResource("RectangleShape2D_s21t5")
@@ -60,10 +65,6 @@ follow_viewport_enabled = true
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="coin" parent="." instance=ExtResource("5_myfnr")]
-
-[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="coin"]
-
 [node name="enemy" parent="." instance=ExtResource("6_efcic")]
 position = Vector2(-100, 0)
 
@@ -71,7 +72,6 @@ position = Vector2(-100, 0)
 [connection signal="screen_exited" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_exited"]
 [connection signal="area_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_area_entered"]
 [connection signal="body_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_body_entered"]
-[connection signal="screen_exited" from="coin/VisibleOnScreenEnabler2D" to="coin" method="_on_visible_on_screen_enabler_2d_screen_exited"]
 
 [editable path="WallNode"]
 [editable path="PlayerNode/Player/Webshooter"]

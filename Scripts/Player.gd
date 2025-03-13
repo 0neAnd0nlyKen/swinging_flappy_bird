@@ -35,11 +35,11 @@ func _physics_process(delta):
 		#print("swinging_velocity is",swinging_velocity)
 		velocity.y += swinging_velocity.y*2 
 		velocity.x += swinging_velocity.x *2
-	elif not is_on_floor():
-		#velocity.y += gravity * delta 
-		velocity.y += 100 * delta 
-		if velocity.y > MAXFALLSPEED:
-			velocity.y = MAXFALLSPEED
+	#elif not is_on_floor():
+		##velocity.y += gravity * delta 
+		#velocity.y += 100 * delta 
+		#if velocity.y > MAXFALLSPEED:
+			#velocity.y = MAXFALLSPEED
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -59,9 +59,10 @@ func _physics_process(delta):
 #func _on_resetter_body_entered(body:walls):
 	#body.queue_free()
 	#Wall_reset()
-#func _on_detect_body_entered(body):
+func _on_detect_body_entered(body):
 	#if body.name == "Walls":
-		#get_tree().reload_current_scene()
+	if body is walls:
+		get_tree().reload_current_scene()
 
 
 

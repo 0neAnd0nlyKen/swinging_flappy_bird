@@ -1,6 +1,6 @@
 extends StaticBody2D
 #
-#class_name walls
+class_name walls
 #func _physics_process(delta):
 	#position.x -=2*delta
 # Called when the node enters the scene tree for the first time.
