@@ -1,19 +1,43 @@
 extends Node2D
 class_name wall
-#func _ready() -> void:
-	#var newWall = self.duplicate()
-	#newWall.position.x+=100
-	#get_parent().add_child(newWall)
+
+@export var spawn_distance_max = 450
+@export var spawn_distance_min = 100
+@export var spawn_height_max = 60
+var spawn_height_min = spawn_height_max * -1
+@export var tighten_max = 100
+var newWall: wall
+
+func _ready() -> void:
+	newWall = self.duplicate()
+	tightenWalls()
+	pass
 
 #func _physics_process(delta):
 	#position.x -=100 * delta
 # Called when the node enters the scene tree for the first time.
+func tightenWalls() -> void:
+	var randi=randi_range(0,tighten_max)
+	$Walls/UpperPipeCol.position.y+=randi
+	placeCoin(randi)
+
+func placeCoin(tightened: int) -> void :
+	var upper_limit = $Walls/UpperPipeCol.position.y + 80
+	var lower_limit = $Walls/LowerPipeCol.position.y - 80
+	var random = randi_range(upper_limit, lower_limit)
+	$Walls/coin.position.y = random
+	
+
 func _on_visible_on_screen_enabler_2d_screen_entered() -> void:
-	var newWall = self.duplicate()
-	newWall.position.x+=450
-	newWall.position.y+=randi_range(-100,100)
+	#var newWall: wall = self.duplicate()
+	newWall.position.x += randi_range(spawn_distance_min, spawn_distance_max)
+	newWall.position.y = randi_range(spawn_height_min, spawn_height_max)
+	#newWall.position.y = 0
+	#newWall.get_node("Walls/UpperPipeCol").position.y = 0 
+	#newWall.get_node("Walls/UpperPipeCol").position.y = newWall.get_node("Walls/UpperPipeCol").position.y - 240 
 	get_parent().add_child(newWall)
-	#print("IM HEREEEE")
+	
+		#print("IM HEREEEE")
 	pass # Replace with function body.
 
 
