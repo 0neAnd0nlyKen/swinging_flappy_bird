@@ -1,5 +1,6 @@
 extends Area2D
-
+@onready var player: player = $"../PlayerNode/Player"
+@onready var direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 @export var speed = 60
 #var gradient = randi_range(-180,180)
 var gradient = 0
@@ -10,7 +11,12 @@ func _ready():
 	print(gradient)
 
 func _process(delta):
-	position += Vector2(direction_x * speed * delta, direction_y * speed * delta)
+	position.x = player.position.x
+	position += direction * speed * delta
+
+	print("direction is", direction.x, direction.y)
+	#position += direction * speed * delta
+	#position += Vector2(direction_x * speed * delta, direction_y * speed * delta)
 
 #func _physics_process(delta):
 	#position += Vector2(-2,0)

@@ -19,6 +19,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var Wall = preload("res://Scenes/wall_node.tscn")
 @export var Webs: webshooter 
 var score = 0
+var coins = 0
 
 
 
@@ -63,6 +64,13 @@ func _on_detect_body_entered(body):
 	#if body.name == "Walls":
 	if body is walls:
 		get_tree().reload_current_scene()
+	if body is enemy_class:
+		print("coins = ", coins)
+		if not coins:
+			get_tree().reload_current_scene()
+		coins -= 1
+			
+		
 
 
 
@@ -70,6 +78,9 @@ func _on_detect_area_entered(area):
 	if area.name == "PointArea":
 		score+=1
 		print("SCORE = ", score)
+	if area.name is coin:
+		coins += 1
+		
 		
 
 

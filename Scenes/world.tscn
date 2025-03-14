@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cll067pejyaoh" path="res://Scenes/webshooter.tscn" id="3_0uovh"]
 [ext_resource type="PackedScene" uid="uid://ce2xpi38frrcv" path="res://Scenes/wall_node.tscn" id="4_yjk6q"]
 [ext_resource type="Script" uid="uid://cgn5483f43o8k" path="res://Scripts/camera_2d.gd" id="5_5v1tr"]
-[ext_resource type="Script" uid="uid://cwygd6gmqycfe" path="res://Scripts/wall_node.gd" id="6_ajngq"]
 [ext_resource type="PackedScene" uid="uid://c6eg3woubw3pw" path="res://Scenes/enemy.tscn" id="6_efcic"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5v1tr"]
+size = Vector2(10, 330)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k7acu"]
 size = Vector2(600, 10)
@@ -32,7 +34,19 @@ drag_bottom_margin = 1.0
 [node name="background" type="Sprite2D" parent="Visible"]
 texture = ExtResource("1_s761n")
 
+[node name="landscapeCol2" type="StaticBody2D" parent="Visible"]
+collision_layer = 2
+
+[node name="leftWall" type="CollisionShape2D" parent="Visible/landscapeCol2"]
+position = Vector2(-130, 0)
+shape = SubResource("RectangleShape2D_5v1tr")
+
+[node name="rightWall" type="CollisionShape2D" parent="Visible/landscapeCol2"]
+position = Vector2(450, 0)
+shape = SubResource("RectangleShape2D_5v1tr")
+
 [node name="landscapeCol" type="StaticBody2D" parent="Visible"]
+collision_layer = 3
 
 [node name="sky" type="CollisionShape2D" parent="Visible/landscapeCol"]
 position = Vector2(160, -170)
@@ -65,11 +79,17 @@ shape = SubResource("RectangleShape2D_3fl8f")
 [node name="Webshooter" parent="PlayerNode/Player" instance=ExtResource("3_0uovh")]
 
 [node name="WallNode" parent="." instance=ExtResource("4_yjk6q")]
-script = ExtResource("6_ajngq")
+
+[node name="upperEnemy" parent="WallNode" index="0" node_paths=PackedStringArray("player")]
+player = NodePath("../../PlayerNode/Player")
+
+[node name="lowerEnemy" parent="WallNode" index="1" node_paths=PackedStringArray("player")]
+player = NodePath("../../PlayerNode/Player")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="WallNode"]
 position = Vector2(250, 0)
 scale = Vector2(1, 15.32)
+enable_node_path = NodePath("")
 
 [node name="background" type="Sprite2D" parent="WallNode/VisibleOnScreenEnabler2D"]
 position = Vector2(5.24521e-06, -1.19209e-07)
@@ -84,6 +104,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="enemy" parent="." instance=ExtResource("6_efcic")]
+visible = false
 position = Vector2(-100, 0)
 
 [connection signal="area_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_area_entered"]

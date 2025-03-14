@@ -5,12 +5,16 @@ class_name wall
 @export var spawn_distance_min = 100
 @export var spawn_height_max = 60
 var spawn_height_min = spawn_height_max * -1
-@export var tighten_max = 100
+@export var tighten_max = 125
 var newWall: wall
 
 func _ready() -> void:
 	newWall = self.duplicate()
 	tightenWalls()
+	#if(randi_range(0,3)):
+		#get_node("lowerEnemy").queue_free()
+	#if(randi_range(0,3)):
+		#get_node("upperEnemy").queue_free()
 	pass
 
 #func _physics_process(delta):
@@ -43,4 +47,4 @@ func _on_visible_on_screen_enabler_2d_screen_entered() -> void:
 
 func _on_visible_on_screen_enabler_2d_screen_exited() -> void:
 	#print("BUH BYE")
-	queue_free() # Replace with function body.
+	$Walls.queue_free() # Replace with function body.
