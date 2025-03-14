@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://csym8hu3yhhtw"]
+[gd_scene load_steps=13 format=3 uid="uid://csym8hu3yhhtw"]
 
 [ext_resource type="Script" uid="uid://b85bvtidsjko4" path="res://Scripts/Player.gd" id="1_gmvqp"]
 [ext_resource type="Texture2D" uid="uid://dpyw0pxgkwgit" path="res://Sprites/flappy bird - sprites/background_day.png" id="1_s761n"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ce2xpi38frrcv" path="res://Scenes/wall_node.tscn" id="4_yjk6q"]
 [ext_resource type="Script" uid="uid://cgn5483f43o8k" path="res://Scripts/camera_2d.gd" id="5_5v1tr"]
 [ext_resource type="PackedScene" uid="uid://c6eg3woubw3pw" path="res://Scenes/enemy.tscn" id="6_efcic"]
+[ext_resource type="PackedScene" uid="uid://b26qytclhe56g" path="res://Scenes/main_menu.tscn" id="8_k7acu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v1tr"]
 size = Vector2(10, 330)
@@ -56,6 +57,10 @@ shape = SubResource("RectangleShape2D_k7acu")
 position = Vector2(160, 170)
 shape = SubResource("RectangleShape2D_k7acu")
 
+[node name="Control" parent="Visible" instance=ExtResource("8_k7acu")]
+offset_left = 160.0
+offset_right = 160.0
+
 [node name="PlayerNode" type="Node2D" parent="."]
 top_level = true
 
@@ -72,6 +77,7 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 texture = ExtResource("2_tfjnn")
 
 [node name="Detect" type="Area2D" parent="PlayerNode/Player"]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNode/Player/Detect"]
 shape = SubResource("RectangleShape2D_3fl8f")

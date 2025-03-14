@@ -7,12 +7,19 @@ class_name enemy_class
 @onready var direction: Vector2 = Vector2(randf_range(-1,1) , randf_range(-1,1)).normalized()
 @onready var enemy: CharacterBody2D = self.get_node("enemy")
 @onready var moving: bool = false
+#@onready var stay: bool = false
 #func _ready() -> void:
 	#enemy.velocity = direction * speed
 
 func _process(delta: float) -> void:
 	if not moving:
 		return
+	#if stay:
+		#position.x = player,position.x
+	#elif position.x == player.position.x:
+		#stay = true
+		
+	
 	#position.x = player.position.x
 	var collision = enemy.move_and_collide(direction * speed * delta)
 	if collision:

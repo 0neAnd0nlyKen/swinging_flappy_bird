@@ -60,14 +60,20 @@ func _physics_process(delta):
 #func _on_resetter_body_entered(body:walls):
 	#body.queue_free()
 	#Wall_reset()
+	
+func gameOver() -> void:
+	get_tree().paused = true	
+	
 func _on_detect_body_entered(body):
 	#if body.name == "Walls":
 	if body is walls:
-		get_tree().reload_current_scene()
-	if body is enemy_class:
+		gameOver()
+		#get_tree().reload_current_scene()
+	if body is enemy_body:
 		print("coins = ", coins)
 		if not coins:
-			get_tree().reload_current_scene()
+			gameOver()
+			#get_tree().reload_current_scene()
 		coins -= 1
 			
 		
