@@ -18,6 +18,9 @@ config/icon="res://icon.svg"
 [autoload]
 
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+ScoreManager="*res://Scripts/score.gd"
+HighScoreManager="*res://Scripts/highscore.gd"
+CoinManager="*res://Scripts/coin_manager.gd"
 
 [editor_plugins]
 
