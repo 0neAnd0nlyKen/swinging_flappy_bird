@@ -1,0 +1,2 @@
+extends StaticBody2D
+class_name camera_wall_class

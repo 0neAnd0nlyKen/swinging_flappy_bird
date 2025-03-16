@@ -8,8 +8,12 @@ class_name enemy_class
 @onready var enemy: CharacterBody2D = self.get_node("enemy")
 @onready var moving: bool = false
 #@onready var stay: bool = false
-#func _ready() -> void:
+func _ready() -> void:
+	flipIfChangeDir()
 	#enemy.velocity = direction * speed
+
+func flipIfChangeDir():
+	$enemy/EnemySprite.flip_h = enemy.velocity.x < 0
 
 func _process(delta: float) -> void:
 	if not moving:
@@ -25,6 +29,9 @@ func _process(delta: float) -> void:
 	if collision:
 		direction = direction.bounce(collision.get_normal())
 		enemy.velocity = direction * speed
+		flipIfChangeDir()
+		#if direction.x > 0:
+			#enemy.velocity += player.velocity
 				#enemy.velocity = enemy.velocity.rotated(PI/2.0)
 		#enemy.velocity=Vector2(50,50)
 

@@ -1,42 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtieajsh2haay"]
+[gd_scene load_steps=9 format=3 uid="uid://dtieajsh2haay"]
 
 [ext_resource type="Script" uid="uid://cotx0afoqw1eg" path="res://Scripts/enemy_node.gd" id="1_kvtl2"]
 [ext_resource type="Script" uid="uid://bgq5a5cfakyf8" path="res://Scripts/enemy.gd" id="2_kvtl2"]
-[ext_resource type="Texture2D" uid="uid://brhh5xxobi68g" path="res://Sprites/brackeys_platformer_assets/sprites/slime_green.png" id="3_5idl8"]
+[ext_resource type="Texture2D" uid="uid://c86i10if0mc1" path="res://Sprites/free flappy chicken/Transparent PNG/flying/frame-1.png" id="3_8yw8p"]
+[ext_resource type="Texture2D" uid="uid://dxy3vbmlm58af" path="res://Sprites/free flappy chicken/Transparent PNG/flying/frame-2.png" id="4_8626h"]
+[ext_resource type="Texture2D" uid="uid://dsudck0ihbr5y" path="res://Sprites/free flappy chicken/Transparent PNG/flying/frame-3.png" id="5_e1uoh"]
+[ext_resource type="Texture2D" uid="uid://c2a5ou7mqe2i" path="res://Sprites/free flappy chicken/Transparent PNG/flying/frame-4.png" id="6_hce2m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y5aqg"]
-size = Vector2(16, 16)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8yw8p"]
+height = 20.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eeoum"]
-atlas = ExtResource("3_5idl8")
-region = Rect2(0, 24, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7e5cv"]
-atlas = ExtResource("3_5idl8")
-region = Rect2(24, 24, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8et3k"]
-atlas = ExtResource("3_5idl8")
-region = Rect2(48, 24, 24, 24)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dnfee"]
-atlas = ExtResource("3_5idl8")
-region = Rect2(72, 24, 24, 24)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8hlwy"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dxf1e"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_eeoum")
+"texture": ExtResource("3_8yw8p")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7e5cv")
+"texture": ExtResource("4_8626h")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8et3k")
+"texture": ExtResource("5_e1uoh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dnfee")
+"texture": ExtResource("6_hce2m")
 }],
 "loop": true,
 "name": &"default",
@@ -52,13 +39,13 @@ collision_mask = 2
 script = ExtResource("2_kvtl2")
 
 [node name="EnemyCol" type="CollisionShape2D" parent="enemy"]
-shape = SubResource("RectangleShape2D_y5aqg")
+shape = SubResource("CapsuleShape2D_8yw8p")
 
 [node name="EnemySprite" type="AnimatedSprite2D" parent="enemy"]
-position = Vector2(0, -8)
-sprite_frames = SubResource("SpriteFrames_8hlwy")
+scale = Vector2(0.02, 0.02)
+sprite_frames = SubResource("SpriteFrames_dxf1e")
 autoplay = "default"
-frame_progress = 0.000364667
+frame_progress = 0.752081
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="enemy"]
 

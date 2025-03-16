@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=4 uid="uid://cwm8v8daw1aqo"]
+
+[ext_resource type="Texture2D" uid="uid://cbpfgq6fqvg" path="res://Sprites/pipe_tileset_v2.png" id="1_uhra5"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ktcp"]
+texture = ExtResource("1_uhra5")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ws3sl"]
+sources/0 = SubResource("TileSetAtlasSource_7ktcp")
+
+[node name="Pipes" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-16, 0)
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAAAAAIAAAABAAEAAAAAAAMAAAABAAEAAAAAAAQAAAABAAEAAAAAAAUAAAABAAEAAAAAAAYAAAABAAEAAAAAAAcAAAABAAEAAAAAAAgAAAABAAEAAAAAAAkAAAABAAEAAAAAAAEAAAABAAEAAAAAAAAAAAAAAAEAAAA=")
+tile_set = SubResource("TileSet_ws3sl")

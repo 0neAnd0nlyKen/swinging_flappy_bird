@@ -1,7 +1,7 @@
 extends Node2D
 class_name wall
 
-@export var spawn_distance_max = 450
+@export var spawn_distance_max = 600
 @export var spawn_distance_min = 100
 @export var spawn_height_max = 60
 var spawn_height_min = spawn_height_max * -1
@@ -11,10 +11,10 @@ var newWall: wall
 func _ready() -> void:
 	newWall = self.duplicate()
 	tightenWalls()
-	#if(randi_range(0,3)):
-		#get_node("lowerEnemy").queue_free()
-	#if(randi_range(0,3)):
-		#get_node("upperEnemy").queue_free()
+	if(randi_range(0,2)):
+		get_node("lowerEnemy").queue_free()
+	if(randi_range(0,2)):
+		get_node("upperEnemy").queue_free()
 	pass
 
 #func _physics_process(delta):

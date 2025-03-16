@@ -26,8 +26,9 @@ func _ready():
 func _process(delta):
 	var tip_loc = to_local(tip)
 	link.rotation = self.position.angle_to_point(tip_loc) - deg_to_rad(180)
-	link.position = tip_loc
-	link.region_rect.size.x = tip_loc.length()
+	$Tip/Sprite2D.rotation = self.position.angle_to_point(tip_loc) - deg_to_rad(180)
+	link.position = tip_loc/2
+	link.region_rect.size.x = tip_loc.length() * 2
 
 func _physics_process(delta):
 	$Tip.global_position = tip

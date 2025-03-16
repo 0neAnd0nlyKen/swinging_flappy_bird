@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://csym8hu3yhhtw"]
+[gd_scene load_steps=15 format=3 uid="uid://csym8hu3yhhtw"]
 
 [ext_resource type="Script" uid="uid://b85bvtidsjko4" path="res://Scripts/Player.gd" id="1_gmvqp"]
 [ext_resource type="Texture2D" uid="uid://dpyw0pxgkwgit" path="res://Sprites/flappy bird - sprites/background_day.png" id="1_s761n"]
+[ext_resource type="Texture2D" uid="uid://3thmc0834s0q" path="res://Sprites/background.svg" id="2_5v1tr"]
 [ext_resource type="Texture2D" uid="uid://chejijvj2veqv" path="res://Sprites/flappy bird - sprites/bird_orange_0.png" id="2_tfjnn"]
+[ext_resource type="Script" uid="uid://15lo1y0y7s55" path="res://Scripts/ground.gd" id="3_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://cll067pejyaoh" path="res://Scenes/webshooter.tscn" id="3_0uovh"]
 [ext_resource type="PackedScene" uid="uid://ce2xpi38frrcv" path="res://Scenes/wall_node.tscn" id="4_yjk6q"]
 [ext_resource type="Script" uid="uid://cgn5483f43o8k" path="res://Scripts/camera_2d.gd" id="5_5v1tr"]
@@ -33,7 +35,9 @@ drag_top_margin = 1.0
 drag_bottom_margin = 1.0
 
 [node name="background" type="Sprite2D" parent="Visible"]
-texture = ExtResource("1_s761n")
+position = Vector2(100, 0)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_5v1tr")
 
 [node name="landscapeCol2" type="StaticBody2D" parent="Visible"]
 collision_layer = 2
@@ -56,6 +60,7 @@ shape = SubResource("RectangleShape2D_k7acu")
 [node name="ground" type="CollisionShape2D" parent="Visible/landscapeCol"]
 position = Vector2(160, 170)
 shape = SubResource("RectangleShape2D_k7acu")
+script = ExtResource("3_0fj1v")
 
 [node name="Control" parent="Visible" instance=ExtResource("8_k7acu")]
 offset_left = 160.0
@@ -98,6 +103,7 @@ scale = Vector2(1, 15.32)
 enable_node_path = NodePath("")
 
 [node name="background" type="Sprite2D" parent="WallNode/VisibleOnScreenEnabler2D"]
+visible = false
 position = Vector2(5.24521e-06, -1.19209e-07)
 scale = Vector2(0.138889, 0.078023)
 texture = ExtResource("1_s761n")

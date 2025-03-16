@@ -36,11 +36,11 @@ func _physics_process(delta):
 		#print("swinging_velocity is",swinging_velocity)
 		velocity.y += swinging_velocity.y*2 
 		velocity.x += swinging_velocity.x *2
-	#elif not is_on_floor():
-		##velocity.y += gravity * delta 
-		#velocity.y += 100 * delta 
-		#if velocity.y > MAXFALLSPEED:
-			#velocity.y = MAXFALLSPEED
+	elif not is_on_floor():
+		#velocity.y += gravity * delta 
+		velocity.y += 100 * delta 
+		if velocity.y > MAXFALLSPEED:
+			velocity.y = MAXFALLSPEED
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -66,8 +66,6 @@ func gameOver() -> void:
 	
 func _on_detect_body_entered(body):
 	#if body.name == "Walls":
-	if body is walls:
-		gameOver()
 		#get_tree().reload_current_scene()
 	if body is enemy_body:
 		print("coins = ", coins)
@@ -76,6 +74,8 @@ func _on_detect_body_entered(body):
 			#get_tree().reload_current_scene()
 		coins -= 1
 			
+	if body is walls:
+		gameOver()
 		
 
 
@@ -94,8 +94,13 @@ func _on_detect_area_entered(area):
 func _input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.pressed:
-			var mouse_global_pos = get_global_mouse_position()
-			var direction_to_mouse = (mouse_global_pos - global_position).normalized()
-			Webs.shoot(direction_to_mouse,mouse_global_pos)
+			match event.button_index:
+				MOUSE_BUTTON_LEFT :
+					var mouse_global_pos = get_global_mouse_position()
+					var direction_to_mouse = (mouse_global_pos - global_position).normalized()
+					Webs.shoot(direction_to_mouse,mouse_global_pos)
+					# left button clicked
+				MOUSE_BUTTON_RIGHT:
+					velocity.x -= 10
 		else:
 			Webs.release()
