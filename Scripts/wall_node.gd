@@ -34,8 +34,8 @@ func placeCoin(tightened: int) -> void :
 
 func _on_visible_on_screen_enabler_2d_screen_entered() -> void:
 	#var newWall: wall = self.duplicate()
-	newWall.position.x += randi_range(spawn_distance_min, spawn_distance_max)
-	newWall.position.y = randi_range(spawn_height_min, spawn_height_max)
+	newWall.global_position.x += randi_range(spawn_distance_min, spawn_distance_max)
+	newWall.global_position.y = randi_range(spawn_height_min, spawn_height_max)
 	#newWall.position.y = 0
 	#newWall.get_node("Walls/UpperPipeCol").position.y = 0 
 	#newWall.get_node("Walls/UpperPipeCol").position.y = newWall.get_node("Walls/UpperPipeCol").position.y - 240 

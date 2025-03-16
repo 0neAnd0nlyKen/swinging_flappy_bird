@@ -1,6 +1,6 @@
 extends Area2D
 
-class_name coin
+class_name coin_class
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#self.position.y+=randi_range(-50,50)

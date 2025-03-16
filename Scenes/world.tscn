@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://csym8hu3yhhtw"]
+[gd_scene load_steps=17 format=3 uid="uid://csym8hu3yhhtw"]
 
+[ext_resource type="Script" uid="uid://g8cq51ahy6k" path="res://Scripts/world.gd" id="1_7yui6"]
 [ext_resource type="Script" uid="uid://b85bvtidsjko4" path="res://Scripts/Player.gd" id="1_gmvqp"]
 [ext_resource type="Texture2D" uid="uid://dpyw0pxgkwgit" path="res://Sprites/flappy bird - sprites/background_day.png" id="1_s761n"]
 [ext_resource type="Texture2D" uid="uid://3thmc0834s0q" path="res://Sprites/background.svg" id="2_5v1tr"]
@@ -25,6 +26,7 @@ size = Vector2(16, 12)
 size = Vector2(18, 14)
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_7yui6")
 
 [node name="Visible" type="Node2D" parent="."]
 script = ExtResource("5_5v1tr")
@@ -114,6 +116,7 @@ visible = false
 position = Vector2(-100, 0)
 
 [node name="scoreOverlay" parent="." instance=ExtResource("11_ikia7")]
+follow_viewport_enabled = true
 
 [node name="gridOverlay" parent="scoreOverlay" index="0"]
 offset_left = -112.0
@@ -121,7 +124,9 @@ offset_top = -153.0
 offset_right = -28.0
 offset_bottom = -60.0
 
+[connection signal="area_entered" from="PlayerNode/Player/Detect" to="." method="_on_detect_area_entered"]
 [connection signal="area_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_area_entered"]
+[connection signal="body_entered" from="PlayerNode/Player/Detect" to="." method="_on_detect_body_entered"]
 [connection signal="body_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_body_entered"]
 [connection signal="screen_entered" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_entered"]
 [connection signal="screen_exited" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_exited"]

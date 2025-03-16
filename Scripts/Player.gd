@@ -64,28 +64,26 @@ func _physics_process(delta):
 func gameOver() -> void:
 	get_tree().paused = true	
 	
-func _on_detect_body_entered(body):
-	#if body.name == "Walls":
-		#get_tree().reload_current_scene()
-	if body is enemy_body:
-		print("coins = ", coins)
-		if not coins:
-			gameOver()
-			#get_tree().reload_current_scene()
-		coins -= 1
-			
-	if body is walls:
-		gameOver()
+#func _on_detect_body_entered(body):
+	##if body.name == "Walls":
+		##get_tree().reload_current_scene()
+	#if body is enemy_body:
+		#print("coins = ", coins)
+		#if not coins:
+			#gameOver()
+			##get_tree().reload_current_scene()
+		#coins -= 1
+			#
+	#if body is walls:
+		#gameOver()
+		#
+#func _on_detect_area_entered(area):
+	#if area.name == "PointArea":
+		#score+=1
+		#print("SCORE = ", score)
+	#if area is coin_class:
+		#coins += 1
 		
-
-
-
-func _on_detect_area_entered(area):
-	if area.name == "PointArea":
-		score+=1
-		print("SCORE = ", score)
-	if area.name is coin:
-		coins += 1
 		
 		
 

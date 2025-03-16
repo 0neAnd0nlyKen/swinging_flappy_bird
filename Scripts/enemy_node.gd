@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 	#position.x = player.position.x
 	var collision = enemy.move_and_collide(direction * speed * delta)
 	if collision:
-		direction = direction.bounce(collision.get_normal())
+		direction = direction.bounce(collision.get_normal()) 
 		enemy.velocity = direction * speed
 		flipIfChangeDir()
 		#if direction.x > 0:
