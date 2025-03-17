@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://csym8hu3yhhtw"]
+[gd_scene load_steps=18 format=3 uid="uid://csym8hu3yhhtw"]
 
 [ext_resource type="Script" uid="uid://g8cq51ahy6k" path="res://Scripts/world.gd" id="1_7yui6"]
 [ext_resource type="Script" uid="uid://b85bvtidsjko4" path="res://Scripts/Player.gd" id="1_gmvqp"]
@@ -10,7 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://ce2xpi38frrcv" path="res://Scenes/wall_node.tscn" id="4_yjk6q"]
 [ext_resource type="Script" uid="uid://cgn5483f43o8k" path="res://Scripts/camera_2d.gd" id="5_5v1tr"]
 [ext_resource type="PackedScene" uid="uid://c6eg3woubw3pw" path="res://Scenes/enemy.tscn" id="6_efcic"]
-[ext_resource type="PackedScene" uid="uid://b26qytclhe56g" path="res://Scenes/main_menu.tscn" id="8_k7acu"]
+[ext_resource type="LabelSettings" uid="uid://sqr3kmbimgx7" path="res://Sprites/blackFontLabel.tres" id="7_c5t2i"]
+[ext_resource type="PackedScene" uid="uid://b4m77me4cvw0x" path="res://Scenes/game_over_menu.tscn" id="7_e0ngr"]
 [ext_resource type="PackedScene" uid="uid://bpeku2khcyyyc" path="res://Scenes/score_overlay.tscn" id="11_ikia7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v1tr"]
@@ -65,9 +66,28 @@ position = Vector2(160, 170)
 shape = SubResource("RectangleShape2D_k7acu")
 script = ExtResource("3_0fj1v")
 
-[node name="Control" parent="Visible" instance=ExtResource("8_k7acu")]
-offset_left = 160.0
-offset_right = 160.0
+[node name="scoreOverlay" parent="Visible" node_paths=PackedStringArray("scoreDisplay", "highscoreDisplay", "coinDisplay") instance=ExtResource("11_ikia7")]
+scoreDisplay = NodePath("gridOverlay/score_val")
+highscoreDisplay = NodePath("gridOverlay/highscore_val")
+coinDisplay = NodePath("gridOverlay/coin_val")
+
+[node name="gridOverlay" parent="Visible/scoreOverlay" index="0"]
+offset_left = -112.0
+offset_top = -153.0
+offset_right = -28.0
+offset_bottom = -60.0
+
+[node name="highscore_val" parent="Visible/scoreOverlay/gridOverlay" index="1"]
+label_settings = ExtResource("7_c5t2i")
+
+[node name="score_val" parent="Visible/scoreOverlay/gridOverlay" index="3"]
+label_settings = ExtResource("7_c5t2i")
+
+[node name="coin_val" parent="Visible/scoreOverlay/gridOverlay" index="5"]
+label_settings = ExtResource("7_c5t2i")
+
+[node name="game_over_menu" parent="Visible" instance=ExtResource("7_e0ngr")]
+top_level = true
 
 [node name="PlayerNode" type="Node2D" parent="."]
 top_level = true
@@ -115,15 +135,6 @@ texture = ExtResource("1_s761n")
 visible = false
 position = Vector2(-100, 0)
 
-[node name="scoreOverlay" parent="." instance=ExtResource("11_ikia7")]
-follow_viewport_enabled = true
-
-[node name="gridOverlay" parent="scoreOverlay" index="0"]
-offset_left = -112.0
-offset_top = -153.0
-offset_right = -28.0
-offset_bottom = -60.0
-
 [connection signal="area_entered" from="PlayerNode/Player/Detect" to="." method="_on_detect_area_entered"]
 [connection signal="area_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_area_entered"]
 [connection signal="body_entered" from="PlayerNode/Player/Detect" to="." method="_on_detect_body_entered"]
@@ -131,6 +142,6 @@ offset_bottom = -60.0
 [connection signal="screen_entered" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_entered"]
 [connection signal="screen_exited" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_exited"]
 
+[editable path="Visible/scoreOverlay"]
 [editable path="PlayerNode/Player/Webshooter"]
 [editable path="WallNode"]
-[editable path="scoreOverlay"]

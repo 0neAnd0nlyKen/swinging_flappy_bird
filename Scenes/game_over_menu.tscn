@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4m77me4cvw0x"]
+
+[ext_resource type="Script" uid="uid://b4037j13u017" path="res://Scripts/menu.gd" id="1_arass"]
+
+[node name="game_over_menu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_arass")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="game_over_menu" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="restart" type="Button" parent="MarginContainer/game_over_menu"]
+layout_mode = 2
+text = "play"
+
+[node name="main_menu" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="play" type="Button" parent="MarginContainer/main_menu"]
+layout_mode = 2
+text = "play"
+
+[node name="exit" type="Button" parent="MarginContainer/main_menu"]
+layout_mode = 2
+text = "exit"
+
+[connection signal="pressed" from="MarginContainer/game_over_menu/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MarginContainer/main_menu/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/main_menu/exit" to="." method="_on_exit_pressed"]

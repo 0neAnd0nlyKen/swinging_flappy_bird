@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://g71eg836tx0w"]
+
+[ext_resource type="Script" uid="uid://b4037j13u017" path="res://Scripts/menu.gd" id="1_1rerr"]
+
+[node name="menu" type="Node2D"]
+script = ExtResource("1_1rerr")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="game_over_menu" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="restart" type="Button" parent="MarginContainer/game_over_menu"]
+layout_mode = 2
+text = "play"
+
+[node name="main_menu" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="play" type="Button" parent="MarginContainer/main_menu"]
+layout_mode = 2
+text = "play"
+
+[node name="exit" type="Button" parent="MarginContainer/main_menu"]
+layout_mode = 2
+text = "exit"

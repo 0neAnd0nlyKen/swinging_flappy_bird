@@ -2,7 +2,7 @@ extends Node2D
 class_name world
 
 var is_game_starting = true
-@onready var scoreOverlay: score_overlay = $scoreOverlay
+@onready var scoreOverlay: score_overlay = $Visible/scoreOverlay
 
 var score = 0
 var coin = 0
@@ -12,7 +12,7 @@ const MAX_HIGH_SCORES = 10
 
 func _ready():
 	load_high_scores()
-	get_tree().paused = false
+	get_tree().paused = true
 	scoreOverlay.coin = 0
 	scoreOverlay.score = 0
 
@@ -48,7 +48,7 @@ func load_high_scores():
 		file.close()
 	else:
 		high_scores = []
-	scoreOverlay.highscore = 100
+	scoreOverlay.highscore = high_scores[0]
 	scoreOverlay.updateHighscoreDisplay()
 
 func save_high_scores():
