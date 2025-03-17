@@ -99,6 +99,6 @@ func _input(event) -> void:
 					Webs.shoot(direction_to_mouse,mouse_global_pos)
 					# left button clicked
 				MOUSE_BUTTON_RIGHT:
-					velocity.x -= 10
+					velocity.x -= 50
 		else:
 			Webs.release()

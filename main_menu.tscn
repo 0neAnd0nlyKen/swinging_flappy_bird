@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b26qytclhe56g"]
+[gd_scene load_steps=2 format=3 uid="uid://crstnwlheipea"]
 
-[ext_resource type="Script" uid="uid://b4037j13u017" path="res://Scripts/menu.gd" id="1_28flt"]
+[ext_resource type="Script" uid="uid://b4037j13u017" path="res://Scripts/menu.gd" id="1_06t4h"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_28flt")
+script = ExtResource("1_06t4h")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_right = 41.0

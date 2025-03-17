@@ -65,14 +65,22 @@ position = Vector2(160, 170)
 shape = SubResource("RectangleShape2D_k7acu")
 script = ExtResource("3_0fj1v")
 
+[node name="scoreOverlay" parent="Visible" instance=ExtResource("11_ikia7")]
+
+[node name="gridOverlay" parent="Visible/scoreOverlay" index="0"]
+offset_left = -112.0
+offset_top = -153.0
+offset_right = -28.0
+offset_bottom = -60.0
+
 [node name="Control" parent="Visible" instance=ExtResource("8_k7acu")]
-offset_left = 160.0
-offset_right = 160.0
+top_level = true
 
 [node name="PlayerNode" type="Node2D" parent="."]
 top_level = true
 
 [node name="Player" type="CharacterBody2D" parent="PlayerNode" node_paths=PackedStringArray("Webs")]
+process_mode = 1
 position = Vector2(-153, 0)
 script = ExtResource("1_gmvqp")
 Webs = NodePath("Webshooter")
@@ -115,15 +123,8 @@ texture = ExtResource("1_s761n")
 visible = false
 position = Vector2(-100, 0)
 
-[node name="scoreOverlay" parent="." instance=ExtResource("11_ikia7")]
-follow_viewport_enabled = true
-
-[node name="gridOverlay" parent="scoreOverlay" index="0"]
-offset_left = -112.0
-offset_top = -153.0
-offset_right = -28.0
-offset_bottom = -60.0
-
+[connection signal="pressed" from="Visible/Control/MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Visible/Control/MarginContainer/VBoxContainer/exit" to="." method="_on_exit_pressed"]
 [connection signal="area_entered" from="PlayerNode/Player/Detect" to="." method="_on_detect_area_entered"]
 [connection signal="area_entered" from="PlayerNode/Player/Detect" to="PlayerNode/Player" method="_on_detect_area_entered"]
 [connection signal="body_entered" from="PlayerNode/Player/Detect" to="." method="_on_detect_body_entered"]
@@ -131,6 +132,7 @@ offset_bottom = -60.0
 [connection signal="screen_entered" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_entered"]
 [connection signal="screen_exited" from="WallNode/VisibleOnScreenEnabler2D" to="WallNode" method="_on_visible_on_screen_enabler_2d_screen_exited"]
 
+[editable path="Visible/scoreOverlay"]
+[editable path="Visible/Control"]
 [editable path="PlayerNode/Player/Webshooter"]
 [editable path="WallNode"]
-[editable path="scoreOverlay"]

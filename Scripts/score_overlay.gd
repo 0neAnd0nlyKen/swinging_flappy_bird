@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Node2D
 class_name score_overlay
 
 @export var scoreDisplay: Label
@@ -6,7 +6,7 @@ class_name score_overlay
 @export var coinDisplay: Label
 
 @export var score: int = 0
-@export var highscore: int = 0
+@export var highscore: int
 @export var coin: int = 0
 
 func _ready() -> void:
@@ -17,7 +17,7 @@ func _ready() -> void:
 	updateScoreDisplay()
 	updateHighscoreDisplay()
 	updateCoinDisplay()
-	
+
 func loadScore():
 	scoreDisplay.text = "0"
 func loadHighscore():

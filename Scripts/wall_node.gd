@@ -1,7 +1,7 @@
 extends Node2D
 class_name wall
 
-@export var spawn_distance_max = 600
+@export var spawn_distance_max = 450
 @export var spawn_distance_min = 100
 @export var spawn_height_max = 60
 var spawn_height_min = spawn_height_max * -1

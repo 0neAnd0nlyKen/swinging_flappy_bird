@@ -2,9 +2,8 @@ extends Node2D
 
 @onready var player: player = $"../PlayerNode/Player"
 
-func _process(delta):
-	## Update the camera's horizontal position to follow the player
-	self.position.x = player.position.x
+#func _process(delta):
+	#self.position.x = player.position.x
 	
 	#self.position.y = player.position.y
 #

@@ -1,19 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpeku2khcyyyc"]
+[gd_scene load_steps=6 format=3 uid="uid://bpeku2khcyyyc"]
 
 [ext_resource type="Script" uid="uid://4dm432cqnq8n" path="res://Scripts/score_overlay.gd" id="1_0hp6e"]
 [ext_resource type="Texture2D" uid="uid://bygfwnkygq0ph" path="res://Sprites/crowns.png" id="1_rocib"]
 [ext_resource type="Texture2D" uid="uid://dv2hi2hmuclvv" path="res://Sprites/pipe.png" id="2_4djfg"]
 [ext_resource type="Texture2D" uid="uid://b75t5sdjsejds" path="res://Sprites/coin.png" id="3_0hp6e"]
+[ext_resource type="LabelSettings" uid="uid://bppykxjwwu8ox" path="res://Sprites/blackFontLabels.tres" id="3_2o484"]
 
-[node name="scoreOverlay" type="CanvasLayer" node_paths=PackedStringArray("scoreDisplay", "highscoreDisplay", "coinDisplay")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("scoreDisplay", "highscoreDisplay", "coinDisplay")]
 script = ExtResource("1_0hp6e")
 scoreDisplay = NodePath("gridOverlay/score_val")
 highscoreDisplay = NodePath("gridOverlay/highscore_val")
 coinDisplay = NodePath("gridOverlay/coin_val")
 
 [node name="gridOverlay" type="GridContainer" parent="."]
-offset_right = 84.0
-offset_bottom = 88.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.0
+offset_bottom = 93.0
+grow_horizontal = 0
 columns = 2
 
 [node name="highscore_icon" type="TextureRect" parent="gridOverlay"]
@@ -23,6 +28,7 @@ texture = ExtResource("1_rocib")
 [node name="highscore_val" type="Label" parent="gridOverlay"]
 layout_mode = 2
 text = "0"
+label_settings = ExtResource("3_2o484")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -33,6 +39,7 @@ texture = ExtResource("2_4djfg")
 [node name="score_val" type="Label" parent="gridOverlay"]
 layout_mode = 2
 text = "0"
+label_settings = ExtResource("3_2o484")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -43,5 +50,6 @@ texture = ExtResource("3_0hp6e")
 [node name="coin_val" type="Label" parent="gridOverlay"]
 layout_mode = 2
 text = "0"
+label_settings = ExtResource("3_2o484")
 horizontal_alignment = 1
 vertical_alignment = 1
