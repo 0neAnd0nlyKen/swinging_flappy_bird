@@ -37,6 +37,6 @@ animations = [{
 "texture": ExtResource("8_6g6l8")
 }],
 "loop": true,
-"name": &"default",
+"name": &"rotating_coin",
 "speed": 16.0
 }]

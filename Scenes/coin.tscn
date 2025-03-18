@@ -13,6 +13,8 @@ script = ExtResource("1_67uff")
 [node name="CoinSprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 sprite_frames = ExtResource("2_jgi06")
+animation = &"rotating_coin"
+frame_progress = 0.906645
 
 [node name="CoinCol" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_4j1ju")

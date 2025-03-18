@@ -1,8 +1,11 @@
 extends Area2D
 
 class_name coin_class
+
+@onready var anim = $CoinSprite
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	anim.play("rotating_coin")
 	#self.position.y+=randi_range(-50,50)
 	pass # Replace with function body.
 
