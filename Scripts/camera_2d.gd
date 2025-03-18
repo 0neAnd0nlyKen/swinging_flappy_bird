@@ -5,6 +5,7 @@ extends Node2D
 func _process(delta):
 	## Update the camera's horizontal position to follow the player
 	self.position.x = player.position.x
+	#$menu.position.x = player.position.x
 	
 	#self.position.y = player.position.y
 #

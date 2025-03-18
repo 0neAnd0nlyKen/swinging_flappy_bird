@@ -2,12 +2,13 @@ extends Node2D
 class_name world
 
 var is_game_starting = true
+@onready var menu_overlay: menu = $Visible/menu
 @onready var scoreOverlay: score_overlay = $Visible/scoreOverlay
 
 var score = 0
 var coin = 0
 var high_scores = []
-const SAVE_FILE_PATH = "user://high_scores.save"
+const SAVE_FILE_PATH = "res://high_scores.save"
 const MAX_HIGH_SCORES = 10
 
 func _ready():
@@ -17,8 +18,14 @@ func _ready():
 	scoreOverlay.score = 0
 
 func gameOver():
+	$Visible/menu.cur_x = $PlayerNode/Player.position.x
 	get_tree().paused = true
-	add_score(score)
+	$Visible/menu.show()
+
+
+func _on_name_input_text_submitted(new_text: String) -> void:
+	add_score(score, new_text)
+	pass # Replace with function body.
 
 func get_coin():
 	return coin
@@ -46,23 +53,31 @@ func load_high_scores():
 	if file:
 		high_scores = file.get_var()
 		file.close()
+		$Visible/menu.high_scores = high_scores
+		scoreOverlay.highscore = high_scores[0]["score"]
+		scoreOverlay.updateHighscoreDisplay()
 	else:
 		high_scores = []
-	scoreOverlay.highscore = high_scores[0]
-	scoreOverlay.updateHighscoreDisplay()
 
 func save_high_scores():
 	var file = FileAccess.open(SAVE_FILE_PATH, FileAccess.WRITE)
 	file.store_var(high_scores)
 	file.close()
 
-func add_score(score):
-	high_scores.append(score)
-	high_scores.sort()
-	high_scores.reverse()
+func add_score(score, player_name):
+	var new_score = {
+		"score": score,
+		"name": player_name,
+		"datetime": Time.get_datetime_string_from_system()
+	}
+	high_scores.append(new_score)
+	high_scores.sort_custom(func(a, b):
+		return (b["score"] - a["score"]) < 0
+	)
 	if high_scores.size() > MAX_HIGH_SCORES:
 		high_scores.resize(MAX_HIGH_SCORES)
 	save_high_scores()
+
 
 
 func _on_detect_area_entered(area: Area2D) -> void:
@@ -85,3 +100,6 @@ func _on_detect_body_entered(body: Node2D) -> void:
 			
 	if body is walls:
 		gameOver()
+
+
+	pass # Replace with function body.

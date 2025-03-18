@@ -1,9 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://n7ihe4r5xmww"]
+[gd_scene format=3 uid="uid://n7ihe4r5xmww"]
 
-[ext_resource type="Script" path="res://Scripts/input_name.gd" id="1_k30ne"]
-
-[node name="Node2D" type="Node2D"]
-script = ExtResource("1_k30ne")
+[node name="input_name" type="Node2D"]
 
 [node name="BoxContainer" type="BoxContainer" parent="."]
 anchors_preset = 8
